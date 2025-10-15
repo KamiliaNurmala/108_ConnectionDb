@@ -59,6 +59,28 @@ app.get('/biodata/:id', (req, res) => {
   });
 });
 
+/**
+ * POST /biodata
+ * Create a new biodata row.
+ */
+app.post('/biodata', (req, res) => {
+  const { nama, alamat, agama } = req.body;
+
+  // Basic validation
+  if (!nama || !alamat) {
+    return res.status(400).json({ error: 'nama and alamat are required' });
+  }
+
+  const sql = 'INSERT INTO biodata (nama, alamat, agama) VALUES (?, ?, ?)';
+  db.execute(sql, [nama, alamat, agama || null], (err, results) => {
+    if (err) {
+      console.error('Error inserting biodata:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.status(201).json({ id: results.insertId, nama, alamat, agama: agama || null });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
