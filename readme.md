@@ -1,4 +1,4 @@
-![GetBeforePost](img/GetBeforePost)
+![GetBeforePost](img/GetBeforePost.png)
 
 
 ![Post](img/Post.png)
