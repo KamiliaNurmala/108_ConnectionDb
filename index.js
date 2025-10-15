@@ -25,6 +25,21 @@ db.connect((err) => {
   console.log('Connected to mysql database');
 });
 
+/**
+ * GET /biodata
+ * Returns all biodata rows
+ */
+app.get('/biodata', (req, res) => {
+  const sql = 'SELECT id, nama, alamat, agama FROM biodata';
+  db.execute(sql, (err, results) => {
+    if (err) {
+      console.error('Error fetching biodata:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
